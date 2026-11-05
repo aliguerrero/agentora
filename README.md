@@ -1,49 +1,69 @@
-# Oficina DevBox
+# Agentora
 
-Oficina virtual de DevBox para coordinar empleados de inteligencia artificial con Claude y Codex, proyectos, encargos y memoria compartida.
+**Tu oficina de agentes de IA.**
 
-La oficina combina una casa 3D en el navegador con un servidor local. Permite organizar departamentos, asignar trabajo, consultar informes y conservar decisiones entre sesiones y motores.
+Organiza equipos de agentes con Claude y Codex en una casa 3D que funciona en tu computadora. Un gerente forma el equipo, distribuye encargos y coordina proyectos; cada agente conserva su propia memoria e informes. Tú eliges el trabajo y el nivel de autonomía.
 
-## Funciones
+## Qué incluye
 
-- Empleados con misión, memoria, rutinas, encargos e informes propios.
-- Organización por proyectos y departamentos, coordinada por un gerente general.
-- Trabajo con Claude y Codex y relevo entre motores según disponibilidad.
-- Casa 3D para conversar con agentes y consultar su actividad.
-- Reuniones con actas y seguimiento de decisiones.
-- Configuración de conexiones, permisos y notificaciones desde la interfaz.
+- Equipos y departamentos por proyecto.
+- Conversaciones con agentes y seguimiento de su actividad en una casa 3D.
+- Encargos, rutinas, reuniones y memoria persistente.
+- Claude y Codex, con relevo entre motores según disponibilidad.
+- Configuración de permisos, conexiones, notificaciones y acceso remoto opcional.
+- Asistente inicial para crear tu propia oficina, sin datos de otra persona.
 
-## Estructura
+## Requisitos
 
-| Ruta | Contenido |
-| --- | --- |
-| `casa/` | Interfaz de la casa 3D. |
-| `servidor/` | Servidor local y coordinación de la oficina. |
-| `scripts/` | Arranque y herramientas operativas. |
-| `empleados/` | Fichas, memoria y trabajo de los agentes. |
-| `plantilla/` | Plantillas para empleados. |
-| `reuniones/` | Actas de reuniones. |
-| `planes/` | Planificación de trabajo. |
-| `OFICINA.md` | Reglas comunes y funcionamiento. |
-| `CLAUDE.md` | Instrucciones de entrada compartidas. |
+Windows 10/11 o Linux, Node.js 22 o superior y npm. Para que los agentes trabajen, instala y autentica al menos uno de los motores: Claude Code o Codex. Cada motor utiliza tu propia cuenta y cuota.
 
-## Inicio local
+## Instalación
 
-Se necesita Node.js para ejecutar el servidor. Las funciones de cada motor requieren su instalación y autenticación correspondientes; las conexiones externas se configuran desde la oficina.
+Clona o descarga este repositorio y entra en su carpeta.
 
-En Windows, desde la carpeta de la oficina:
+En Windows:
 
 ```powershell
+powershell -ExecutionPolicy Bypass -File .\instalar.ps1
 powershell -ExecutionPolicy Bypass -File .\scripts\abrir-oficina.ps1
 ```
 
-El lanzador inicia el servidor si hace falta y abre `http://127.0.0.1:4848/casa`.
-Consulta `casa/LEEME.md` para las instrucciones específicas de la interfaz.
+En Linux:
 
-## Trabajo y memoria
+```sh
+sh instalar.sh
+sh scripts/abrir-oficina.sh
+```
 
-Antes de modificar el proyecto, lee `OFICINA.md` y `CLAUDE.md`. Conserva las fichas, memorias, informes y decisiones de Ali. Las capacidades efectivas dependen de los permisos del entorno y de las conexiones disponibles.
+Abre http://127.0.0.1:4848/casa y completa el asistente con tu nombre, zona horaria, autonomía, motores y primer proyecto.
 
-## Información local
+Consulta [la guía de uso](LEEME.md) para configurar la oficina, las conexiones y la jornada automática.
 
-Las credenciales y la configuración privada se administran desde el área de configuración. No deben subirse archivos `.env`, el directorio `config/`, registros de ejecución ni conversaciones privadas. Revisa los archivos seleccionados antes de cualquier publicación.
+## Estructura
+
+| Carpeta | Contenido |
+| --- | --- |
+| casa/ | Interfaz 3D con React y Three.js |
+| servidor/ | Servidor local y coordinación de agentes |
+| scripts/ | Arranque y herramientas operativas |
+| plantilla/ | Instaladores e instrucciones genéricas |
+
+Los directorios de configuración, empleados, proyectos, conversaciones y registros se generan para cada instalación y quedan fuera del repositorio.
+
+## Desarrollo
+
+```sh
+cd casa
+npm ci
+npm run build
+```
+
+El servidor sirve la interfaz compilada desde casa/dist/. Antes de trabajar con agentes, consulta OFICINA.md y CLAUDE.md.
+
+## Privacidad y permisos
+
+Las credenciales se configuran desde la interfaz. El servidor escucha en 127.0.0.1; el acceso remoto requiere que configures un túnel. Los agentes pueden ejecutar comandos y modificar proyectos según los permisos que les otorgues.
+
+## Créditos
+
+El motor visual procede de la Oficina de Jules, de Elkis Dev. Se conservan su licencia MIT y los créditos en [casa/LICENSE](casa/LICENSE) y [casa/LICENCIAS.md](casa/LICENCIAS.md). Algunos identificadores internos conservan el nombre histórico DevBox por compatibilidad.

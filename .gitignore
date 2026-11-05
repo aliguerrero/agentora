@@ -1,22 +1,28 @@
-# Credenciales y configuración privada
+# Datos de esta oficina: nunca se comparten
+config/
+logs/
+contextos/
+empleados/
+reuniones/
+contrataciones/
+musica/
+proyectos.json
+organizacion.json
 .env
+
+# Dependencias y compilados
+node_modules/
+casa/dist/
+
+# Archivos locales adicionales
 .env.*
 !.env.example
-/config/
-**/*.pem
-**/*.key
-
-# Dependencias y compilaciones
-**/node_modules/
-**/dist/
-**/coverage/
-
-# Estado local y conversaciones
-/logs/
+EQUIPO.md
+planes/
+assets/logos/
 **/chat/
-
-# Archivos temporales
 *.log
 *.tmp
-.DS_Store
-Thumbs.db
+*.pem
+*.key
+__pycache__/

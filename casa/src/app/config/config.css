@@ -1,0 +1,1277 @@
+/* Área de configuración: misma paleta que la casa (estilos.css). */
+
+.cfg-fondo {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  background: rgba(5, 7, 10, 0.45);
+  display: flex;
+  justify-content: flex-end;
+}
+
+.cfg {
+  width: min(640px, 100vw);
+  height: 100%;
+  box-sizing: border-box;
+  background: #14171c;
+  border-left: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  color: var(--fg);
+}
+
+.cfg-cab {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px 8px;
+}
+
+.cfg-cab h2 {
+  font-family: var(--display);
+  font-size: 22px;
+}
+
+.cfg .btn-cerrar {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  font-size: 22px;
+}
+
+.cfg-pestanas {
+  display: flex;
+  gap: 4px;
+  padding: 0 16px;
+  border-bottom: 1px solid var(--line);
+  overflow-x: auto;
+}
+
+.cfg-pestanas button {
+  border: 0;
+  background: none;
+  color: var(--muted);
+  padding: 10px 12px;
+  border-bottom: 2px solid transparent;
+  font: inherit;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.cfg-pestanas button[aria-selected='true'] {
+  color: var(--fg);
+  border-bottom-color: var(--amber);
+  font-weight: 600;
+}
+
+.cfg .btn:disabled,
+.cfg-opcion:disabled,
+.cfg-switch:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+.cfg-motor,
+.cfg-cuentas li {
+  min-width: 0;
+}
+
+.cfg-cuerpo {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 16px 20px 32px;
+}
+
+.cfg-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.cfg-grupo {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.cfg-grupo h3 {
+  font-family: var(--display);
+  font-size: 15px;
+  color: var(--amber);
+  letter-spacing: 0.02em;
+}
+
+.cfg label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--muted);
+  min-width: 0;
+  flex: 1;
+}
+
+.cfg input,
+.cfg select {
+  min-height: 38px;
+  box-sizing: border-box;
+  padding: 0 10px;
+  border: 1px solid #3a404a;
+  border-radius: 10px;
+  background: #0f1216;
+  color: var(--fg);
+  font: inherit;
+  font-size: 14px;
+}
+
+.cfg input[type='range'] {
+  padding: 0;
+  accent-color: var(--amber);
+}
+
+.cfg input:focus-visible,
+.cfg select:focus-visible,
+.cfg button:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 1px;
+}
+
+.cfg-fila {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.cfg-corto {
+  flex: 0 0 90px !important;
+}
+
+.cfg-nota {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+.cfg-opciones {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.cfg-opcion {
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px;
+  border: 1px solid #3a404a;
+  border-radius: 12px;
+  background: #1a1d23;
+  color: var(--fg);
+  font: inherit;
+  cursor: pointer;
+}
+
+.cfg-opcion span {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.cfg-opcion[aria-pressed='true'] {
+  border-color: var(--amber);
+  background: #2a2114;
+}
+
+.cfg-linea {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+
+.cfg-linea div {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.cfg-linea span {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.cfg-switch {
+  flex: none;
+  width: 44px;
+  height: 26px;
+  border-radius: 13px;
+  border: 1px solid #3a404a;
+  background: #262b33;
+  position: relative;
+  cursor: pointer;
+}
+
+.cfg-switch i {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--idle);
+  transition: transform 0.15s ease;
+}
+
+.cfg-switch[aria-checked='true'] {
+  background: var(--amber);
+  border-color: var(--amber);
+}
+
+.cfg-switch[aria-checked='true'] i {
+  transform: translateX(18px);
+  background: var(--amber-ink);
+}
+
+.cfg-motores {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+.cfg-motor {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: #171a20;
+}
+
+.cfg-motor.apagado {
+  opacity: 0.6;
+}
+
+.cfg-motor header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.cfg-motor header div {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.cfg-motor h4 {
+  font-family: var(--display);
+  font-size: 18px;
+}
+
+.cfg-chip {
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  border: 1px solid #3a404a;
+  color: var(--muted);
+}
+
+.cfg-chip.disponible {
+  color: var(--ok);
+  border-color: #2b5a45;
+}
+
+.cfg-chip.reserva {
+  color: var(--amber);
+  border-color: #5a4220;
+}
+
+.cfg-chip.limite {
+  color: var(--bad);
+  border-color: #5a2a26;
+}
+
+.cfg-barra {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.cfg-barra-cab {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+}
+
+.cfg-barra-cab b {
+  font-variant-numeric: tabular-nums;
+}
+
+.cfg-barra-pista {
+  position: relative;
+  height: 10px;
+  border-radius: 5px;
+  background: #262b33;
+  overflow: hidden;
+}
+
+.cfg-barra-pista i {
+  display: block;
+  height: 100%;
+  border-radius: 5px;
+  background: var(--teal);
+}
+
+.cfg-barra-pista i.alto {
+  background: var(--amber);
+}
+
+.cfg-barra-pista i.lleno {
+  background: var(--bad);
+}
+
+.cfg-barra-pista em {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: rgba(255, 255, 255, 0.45);
+}
+
+.cfg-barra small,
+.cfg-cuentas small {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.cfg-ruta {
+  font-size: 11px;
+  color: var(--muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: ui-monospace, Consolas, monospace;
+}
+
+.cfg-cuentas {
+  border-top: 1px solid var(--line);
+  padding-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.cfg-cuentas-cab {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.cfg-cuentas-cab .btn {
+  flex: none;
+  min-height: 32px;
+  font-size: 12px;
+}
+
+.cfg-cuentas ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.cfg-cuentas li {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 8px 10px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+}
+
+.cfg-cuentas li.activa {
+  border-color: #2b5a45;
+  background: #132620;
+}
+
+.cfg-cuentas li div {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  font-size: 13px;
+}
+
+.cfg-topes {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  gap: 10px;
+}
+
+.cfg-topes span {
+  display: flex;
+  gap: 6px;
+}
+
+.cfg-topes input {
+  width: 80px;
+}
+
+.cfg-topes .btn {
+  flex: none;
+  min-height: 38px;
+  font-size: 12px;
+  padding: 0 10px;
+}
+
+.cfg-acciones {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 8px;
+  position: sticky;
+  bottom: -32px;
+  padding: 12px 0;
+  background: #14171c;
+}
+
+.cfg-acciones .btn {
+  flex: none;
+}
+
+.cfg-aviso {
+  font-size: 13px;
+  margin-right: auto;
+}
+
+.cfg-aviso.ok {
+  color: var(--ok);
+}
+
+.cfg-aviso.error {
+  color: var(--bad);
+}
+
+.btn-config {
+  position: fixed;
+  z-index: 6;
+  top: var(--arriba);
+  right: var(--der);
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  color: var(--fg);
+  font-size: 18px;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+}
+
+.btn-config:hover {
+  background: #262b33;
+}
+
+.cfg .cfg-form label.cfg-tunel-opcion {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.cfg .cfg-form label.cfg-tunel-opcion input {
+  width: auto;
+  margin-top: 4px;
+}
+
+.cfg-tunel-opcion span {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.cfg-tunel-dato {
+  display: flex;
+  gap: 8px;
+}
+
+.cfg-tunel-dato input {
+  flex: 1;
+  min-width: 0;
+  font-family: ui-monospace, monospace;
+}
+
+.cfg-tunel-dato .btn {
+  flex: 0 0 auto;
+}
+
+.cfg-tunel-proveedor {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.cfg-tunel-falta {
+  color: #f0b45a;
+}
+
+.cfg-tunel-ayuda {
+  margin-left: 23px;
+  font-size: 13px;
+}
+
+.cfg-tunel-ayuda summary {
+  cursor: pointer;
+  color: var(--fg);
+}
+
+.cfg-tunel-pasos {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 6px;
+  line-height: 1.45;
+}
+
+.cfg-tunel-pasos ol {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.cfg-tunel-pasos p {
+  margin: 0;
+}
+
+.cfg-tunel-pasos a {
+  color: inherit;
+  text-decoration: underline;
+}
+
+.cfg-nombre {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.cfg-nombre label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.cfg-nombre-etiqueta {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.cfg-nombre-etiqueta code {
+  opacity: 0.7;
+  margin-left: 4px;
+}
+
+.cfg-nombre-fila {
+  display: flex;
+  gap: 8px;
+}
+
+.cfg-nombre-fila input {
+  flex: 1;
+  min-width: 0;
+}
+
+.cfg-nombre-fila .btn {
+  flex: 0 0 auto;
+}
+
+.cfg-nombre-grupo h4 {
+  margin: 12px 0 8px;
+  font-size: 13px;
+  color: var(--fg);
+}
+
+.btn-config-aviso {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 4px;
+  border-radius: 9px;
+  background: #d9534f;
+  color: #fff;
+  font: 700 11px/18px var(--body);
+  font-style: normal;
+}
+
+@media (max-width: 720px) {
+  .cfg-opciones {
+    grid-template-columns: 1fr;
+  }
+  .cfg-cuerpo {
+    padding: 12px 16px 28px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cfg-switch i {
+    transition: none;
+  }
+}
+
+/* ---- Fase 2: pestaña Casa ---- */
+.cfg-opciones.tres {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.cfg textarea {
+  box-sizing: border-box;
+  padding: 8px 10px;
+  border: 1px solid #3a404a;
+  border-radius: 10px;
+  background: #0f1216;
+  color: var(--fg);
+  font: 13px/1.4 ui-monospace, Consolas, monospace;
+  resize: vertical;
+}
+
+.cfg code {
+  font-size: 11px;
+  overflow-wrap: anywhere;
+}
+
+.cfg-sala {
+  flex-direction: row !important;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  color: var(--fg) !important;
+  font-size: 14px !important;
+}
+
+.cfg-sala span {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.cfg-sala i {
+  flex: none;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.cfg-sala select {
+  flex: 0 1 230px;
+}
+
+.cfg-sala select[aria-invalid='true'] {
+  border-color: var(--bad);
+}
+
+@media (max-width: 720px) {
+  .cfg-opciones.tres {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---- Fase 3: Telegram y Correo ---- */
+.cfg-codigo {
+  align-self: flex-start;
+  font: 700 18px/1 ui-monospace, Consolas, monospace !important;
+  padding: 10px 14px;
+  border: 1px dashed var(--amber);
+  border-radius: 10px;
+  color: var(--amber);
+  user-select: all;
+}
+
+.cfg a.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: var(--fg);
+}
+
+.cfg a.btn.principal {
+  color: var(--amber-ink);
+}
+
+.cfg-lista {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.cfg-lista li {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 8px 10px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  font-size: 13px;
+  min-width: 0;
+}
+
+.cfg-lista li small {
+  color: var(--muted);
+  font-size: 11px;
+  overflow-wrap: anywhere;
+}
+
+.cfg-lista li.error {
+  border-color: #5a2a26;
+}
+
+.cfg-fila > .btn {
+  flex: 0 0 auto;
+}
+
+.cfg-proyecto {
+  flex-direction: row !important;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.cfg-proyecto > div {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.cfg-proyecto small {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cfg-proyecto .btn {
+  flex: none;
+}
+
+.cfg .cfg-grupo > select {
+  width: 100%;
+}
+
+/* ---- Fase 5: Equipo ---- */
+.cfg-persona {
+  flex-direction: row !important;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.cfg-persona > div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.cfg-persona-acciones {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: none;
+}
+
+.cfg-persona-acciones .btn {
+  flex: none;
+  min-height: 30px;
+  font-size: 12px;
+  padding: 0 10px;
+}
+
+.cfg-tenue {
+  color: var(--muted);
+  font-weight: 400;
+}
+
+.cfg-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.cfg-chipbtn {
+  border: 1px solid #3a404a;
+  background: #1a1d23;
+  color: var(--fg);
+  border-radius: 999px;
+  padding: 4px 12px;
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.cfg-chipbtn[aria-pressed='true'] {
+  border-color: var(--amber);
+  background: #2a2114;
+  color: var(--amber);
+}
+
+.cfg-check {
+  flex-direction: row !important;
+  align-items: flex-start;
+  gap: 8px;
+  color: var(--fg) !important;
+  font-size: 13px !important;
+}
+
+.cfg-check input {
+  min-height: 0 !important;
+  margin-top: 3px;
+}
+
+.cfg-check span {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.cfg-etiqueta {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.cfg-invitacion {
+  margin-top: 6px;
+  padding: 8px 10px;
+  border: 1px dashed var(--amber);
+  border-radius: 10px;
+  font-size: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.cfg-invitacion code {
+  color: var(--amber);
+  font-size: 13px;
+}
+
+.cfg-corto2 {
+  flex: 0 1 160px !important;
+}
+
+.cfg-editor {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 14px;
+}
+
+@media (max-width: 720px) {
+  .cfg-persona {
+    flex-direction: column !important;
+  }
+  .cfg-persona-acciones {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+}
+
+/* ---- Fase 6: Contacto ---- */
+.cfg-mensaje-cab {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
+  width: 100%;
+  border: 0;
+  background: none;
+  color: var(--fg);
+  font: inherit;
+  font-size: 13px;
+  text-align: left;
+  padding: 0;
+  cursor: pointer;
+}
+
+.cfg-mensaje-cab .cfg-chip {
+  flex: none;
+}
+
+.cfg-mensaje-cuerpo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.cfg-mensaje-cuerpo pre {
+  margin: 0;
+  padding: 10px;
+  border-radius: 8px;
+  background: #0f1216;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font: 13px/1.45 var(--body);
+  max-height: 240px;
+  overflow-y: auto;
+}
+
+.cfg-mensaje .cfg-fila .btn {
+  min-height: 32px;
+  font-size: 12px;
+}
+
+.cfg-pestanas {
+  scrollbar-width: thin;
+}
+
+/* Con muchas pestañas, pasan a una segunda línea en vez de desplazarse. */
+.cfg-pestanas {
+  flex-wrap: wrap;
+  overflow-x: visible;
+  row-gap: 0;
+}
+
+/* ---- Fase 7: Conexiones y Permisos ---- */
+.cfg-catalogo {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 8px;
+}
+
+.cfg-herramientas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 6px;
+  max-height: 160px;
+  overflow-y: auto;
+}
+
+.cfg-tabla-envoltura {
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+
+.cfg-tabla {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 12px;
+}
+
+.cfg-tabla th,
+.cfg-tabla td {
+  padding: 6px 8px;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  white-space: nowrap;
+}
+
+.cfg-tabla thead th {
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.cfg-tabla th.apagada {
+  opacity: 0.5;
+}
+
+.cfg-tabla select {
+  min-height: 30px !important;
+  font-size: 12px !important;
+  padding: 0 6px !important;
+}
+
+.cfg-nivel.n-no {
+  color: var(--muted);
+}
+
+.cfg-nivel.n-todo {
+  color: var(--bad);
+}
+
+.cfg .cfg-tabla input[type='checkbox'] {
+  min-height: 0;
+}
+
+/* Un botón suelto dentro de una columna (cfg-grupo / cfg-form) no debe estirarse en altura:
+   .btn trae flex: 1 1 110px, que en columna se aplica a la altura. */
+.cfg-grupo > .btn,
+.cfg-grupo > .btn.principal,
+.cfg-form > .btn,
+.cfg-form > .btn.principal,
+.cfg-editor > .btn,
+.cfg-editor > .btn.principal {
+  flex: none;
+  align-self: flex-start;
+}
+
+/* ---- Fase 8: asistente y Compartir ---- */
+.asistente.cfg {
+  position: relative;
+  width: min(620px, calc(100vw - 32px));
+  height: auto;
+  max-height: calc(100vh - 32px);
+  overflow-y: auto;
+  padding: 20px 24px;
+  gap: 16px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  z-index: 30;
+}
+
+.asistente h2 {
+  font-family: var(--display);
+  font-size: 24px;
+  letter-spacing: -0.01em;
+}
+
+.asistente-pasos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.asistente-pasos .actual {
+  color: var(--amber);
+  font-weight: 600;
+}
+
+.asistente-pasos .hecho {
+  color: var(--ok);
+}
+
+.asistente-extras {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 8px;
+}
+
+.asistente-acciones {
+  position: static;
+  background: none;
+  padding: 0;
+}
+
+.cfg .cfg-aviso ul,
+.cfg .cfg-nota ul {
+  margin: 6px 0 0;
+  padding-left: 18px;
+  overflow-wrap: anywhere;
+}
+
+.cfg input[type='file'] {
+  padding: 8px;
+  height: auto;
+}
+
+@media (max-width: 720px) {
+  .asistente-pasos li:not(.actual) {
+    display: none;
+  }
+}
+
+/* ---- Logo de la casa ---- */
+.cfg-logo {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.cfg-logo-vista {
+  width: 88px;
+  height: 88px;
+  flex: none;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border: 1px dashed var(--line);
+  border-radius: 12px;
+  font-size: 12px;
+  opacity: 0.95;
+}
+
+.cfg-logo-vista img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.cfg-logo-acciones {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.cfg-logo-acciones .btn {
+  flex: 0 0 auto;
+}
+
+.cfg-logo-acciones .cfg-nota {
+  flex-basis: 100%;
+}
+
+.cfg-logo-galeria {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(72px, 1fr));
+  gap: 8px;
+}
+
+.cfg-logo-galeria button {
+  aspect-ratio: 1;
+  padding: 0;
+  overflow: hidden;
+  background: none;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.cfg-logo-galeria button:hover:not(:disabled),
+.cfg-logo-galeria button:focus-visible {
+  border-color: var(--amber);
+}
+
+.cfg-logo-galeria img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ---- Plano de salas ---- */
+.cfg-plano {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.cfg-plano-piso > small {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.cfg-plano-fila {
+  display: grid;
+  grid-template-columns: var(--plantilla, repeat(32, minmax(0, 1fr)));
+  gap: 6px;
+}
+
+.cfg-plano-sala {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+  padding: 8px 10px;
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--c, var(--line));
+  border-radius: 10px;
+  font-size: 13px;
+}
+
+.cfg-plano-sala small {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.cfg-plano-sala small.lleno {
+  color: var(--amber);
+}
+
+.cfg-plano-sala.comun {
+  justify-content: center;
+  border-top-width: 1px;
+  border-style: dashed;
+  color: var(--muted);
+  font-size: 12px;
+  text-align: center;
+}
+
+.cfg-plano-sala.comun b {
+  color: var(--fg);
+  font-weight: 600;
+}
+
+@media (max-width: 720px) {
+  .cfg-plano-fila {
+    grid-template-columns: 1fr;
+  }
+
+  .cfg-plano-sala {
+    grid-column: auto !important;
+  }
+}
+
+.cfg-obras li {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.cfg-obras li > span:first-child {
+  display: flex;
+  flex: 1 1 240px;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.cfg-obras small.motivo {
+  color: var(--cfg-error, #e5484d);
+  overflow-wrap: anywhere;
+}
+
+.cfg-obras progress {
+  width: 100%;
+  height: 6px;
+  margin-top: 4px;
+  accent-color: #f0a848;
+}
+
+.cfg-obras-acciones {
+  display: flex;
+  flex: 0 0 auto;
+  gap: 6px;
+}
+
+.cfg-obra-form {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.cfg-obra-form > .btn {
+  align-self: flex-start;
+  flex: 0 0 auto;
+}
+
+.cfg-plano-sala > span {
+  overflow-wrap: anywhere;
+}

@@ -1,0 +1,81 @@
+import type { PaqueteSkins } from '../tipos';
+
+/** Paquete de skins de Navidad: solo datos, se registra con `registrarPaquete`. */
+export const paqueteNavidad: PaqueteSkins = {
+  id: 'navidad',
+  nombre: 'Navidad',
+  piezas: [
+    { id: 'gorro-papa-noel', nombre: 'Gorro de Papá Noel', zona: 'sombrero' },
+    { id: 'gorro-elfo', nombre: 'Gorro de elfo', zona: 'sombrero' },
+    { id: 'cuernos-reno', nombre: 'Cuernos de reno', zona: 'sombrero' },
+    { id: 'barba-papa-noel', nombre: 'Barba de Papá Noel', zona: 'cara' },
+    { id: 'bufanda', nombre: 'Bufanda', zona: 'cuello' },
+  ],
+  tops: [{ id: 'sueter-navideno', nombre: 'Suéter navideño' }],
+  disfraces: [
+    {
+      id: 'papa-noel',
+      nombre: 'Papá Noel',
+      descripcion: 'Gorro, barba blanca y traje rojo',
+      atuendo: {
+        face: 'sonrisa',
+        hair: 'corto',
+        hairColor: '#e9ecef',
+        top: 'poleron',
+        topColor: '#c1272d',
+        bottom: 'pantalon',
+        bottomColor: '#9b1c1c',
+        shoes: '#151719',
+        acc: ['gorro-papa-noel', 'barba-papa-noel'],
+      },
+    },
+    {
+      id: 'elfo',
+      nombre: 'Elfo',
+      descripcion: 'Gorro verde con cascabel',
+      atuendo: {
+        face: 'guino',
+        hair: 'corto',
+        hairColor: '#8a5a2b',
+        top: 'poleron',
+        topColor: '#2e8b57',
+        bottom: 'pantalon',
+        bottomColor: '#b33a3a',
+        shoes: '#6b4b3a',
+        acc: ['gorro-elfo'],
+      },
+    },
+    {
+      id: 'reno',
+      nombre: 'Reno',
+      descripcion: 'Cuernos de reno y bufanda',
+      atuendo: {
+        face: 'feliz',
+        hair: 'corto',
+        hairColor: '#4a2c1a',
+        top: 'poleron',
+        topColor: '#8b5a2b',
+        bottom: 'pantalon',
+        bottomColor: '#6b4b3a',
+        shoes: '#4f301c',
+        acc: ['cuernos-reno', 'bufanda'],
+      },
+    },
+    {
+      id: 'sueter-feo',
+      nombre: 'Suéter feo',
+      descripcion: 'Suéter con copos y renos tejidos',
+      atuendo: {
+        face: 'guino',
+        hair: 'rizos',
+        hairColor: '#4a2c1a',
+        top: 'sueter-navideno',
+        topColor: '#2f7a4f',
+        bottom: 'pantalon',
+        bottomColor: '#2f3a4f',
+        shoes: '#e9ecef',
+        acc: [],
+      },
+    },
+  ],
+};

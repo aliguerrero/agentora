@@ -1,0 +1,80 @@
+import type { PaqueteSkins } from '../tipos';
+
+/** Paquete de skins de Fiestas Patrias (Chile): solo datos, se registra con `registrarPaquete`. */
+export const paqueteFiestasPatrias: PaqueteSkins = {
+  id: 'fiestas-patrias',
+  nombre: 'Fiestas Patrias',
+  piezas: [
+    { id: 'poncho', nombre: 'Poncho', zona: 'torso', excluye: ['espalda'] },
+    { id: 'chamanto', nombre: 'Chamanto', zona: 'torso', excluye: ['espalda'] },
+    { id: 'chupalla', nombre: 'Sombrero de huaso (chupalla)', zona: 'sombrero' },
+    { id: 'faja', nombre: 'Faja', zona: 'cintura' },
+    { id: 'bandera-chilena', nombre: 'Bandera de Chile', zona: 'mano' },
+  ],
+  disfraces: [
+    {
+      id: 'huaso',
+      nombre: 'Huaso',
+      descripcion: 'Chupalla, poncho y faja',
+      atuendo: {
+        face: 'sonrisa',
+        hair: 'corto',
+        hairColor: '#1f1611',
+        top: 'camisa',
+        topColor: '#e9ecef',
+        bottom: 'pantalon',
+        bottomColor: '#151719',
+        shoes: '#4f301c',
+        acc: ['chupalla', 'poncho', 'faja'],
+      },
+    },
+    {
+      id: 'huasa',
+      nombre: 'Huasa',
+      descripcion: 'Chamanto y falda roja',
+      atuendo: {
+        face: 'feliz',
+        hair: 'largo',
+        hairColor: '#4a2c1a',
+        top: 'camisa',
+        topColor: '#e9ecef',
+        bottom: 'falda',
+        bottomColor: '#b33a3a',
+        shoes: '#151719',
+        acc: ['chamanto'],
+      },
+    },
+    {
+      id: 'bailarin-cueca',
+      nombre: 'Bailarín de cueca',
+      descripcion: 'Camisa blanca, faja y chupalla',
+      atuendo: {
+        face: 'guino',
+        hair: 'corto',
+        hairColor: '#4a2c1a',
+        top: 'camisa',
+        topColor: '#e9ecef',
+        bottom: 'pantalon',
+        bottomColor: '#2f3a4f',
+        shoes: '#151719',
+        acc: ['chupalla', 'faja'],
+      },
+    },
+    {
+      id: 'hincha-bandera',
+      nombre: 'Hincha con bandera',
+      descripcion: 'Camiseta roja y bandera en la mano',
+      atuendo: {
+        face: 'feliz',
+        hair: 'rapado',
+        hairColor: '#1f1611',
+        top: 'deportiva',
+        topColor: '#c1272d',
+        bottom: 'short',
+        bottomColor: '#2f3e63',
+        shoes: '#e9ecef',
+        acc: ['bandera-chilena'],
+      },
+    },
+  ],
+};

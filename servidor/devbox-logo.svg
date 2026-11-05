@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="40 30 320 330" role="img" aria-label="DevBox">
+  <g fill="none" stroke="#45C3D2" stroke-width="10" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M136,74 H264"/>
+    <path d="M136,56 V92 M264,56 V92"/>
+    <path d="M120,46 q-14,0 -14,14 v6 q0,8 -10,8 q10,0 10,8 v6 q0,14 14,14"/>
+    <path d="M280,46 q14,0 14,14 v6 q0,8 10,8 q-10,0 -10,8 v6 q0,14 -14,14"/>
+    <circle cx="200" cy="112" r="20"/>
+    <path d="M180,136 q20,10 40,0"/>
+    <path d="M176,140 q-30,10 -40,-56"/>
+    <path d="M224,140 q30,10 40,-56"/>
+    <path d="M176,140 q-14,54 6,96 h36 q20,-42 6,-96"/>
+    <path d="M186,236 q-8,60 -12,104 M214,236 q8,60 12,104"/>
+  </g>
+  <g fill="none" stroke="#C08346" stroke-width="11" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M90,178 L200,240 L310,178"/>
+    <path d="M200,240 L200,340"/>
+    <path d="M90,178 L90,278 L200,340 L310,278 L310,178"/>
+    <path d="M90,178 L200,116 L310,178"/>
+    <path d="M74,206 L52,232 L74,258"/>
+    <path d="M326,206 L348,232 L326,258"/>
+  </g>
+</svg>

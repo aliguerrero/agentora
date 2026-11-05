@@ -1,0 +1,14 @@
+{
+  "porDefecto": "general",
+  "pruebas": ["**/*.spec.*", "**/*.test.*", "**/*.e2e-spec.*", "**/test/**", "**/tests/**", "**/__tests__/**", "**/e2e/**"],
+  "perfiles": {
+    "gerente": { "maxTurnos": 150, "editar": "todo", "terminal": true, "subagentes": true, "descripcion": "Desglosa el trabajo, delega, revisa e integra; QA interno antes de entregar." },
+    "backend": { "maxTurnos": 120, "editar": "todo", "terminal": true, "subagentes": true, "descripcion": "API, servicios, base de datos y migraciones, con sus pruebas." },
+    "frontend": { "maxTurnos": 120, "editar": "todo", "terminal": true, "subagentes": true, "descripcion": "Pantallas, componentes y flujos de la interfaz, con sus pruebas." },
+    "qa": { "maxTurnos": 100, "editar": "pruebas", "terminal": true, "subagentes": true, "commits": false, "descripcion": "Pruebas unitarias, de integración, E2E y regresión; reporta hallazgos con evidencia. Solo edita archivos de prueba; los fallos del código los corrige quien lo programó." },
+    "arquitectura": { "maxTurnos": 80, "editar": "todo", "terminal": true, "subagentes": true, "descripcion": "Diseño técnico, contratos entre módulos y revisión de código." },
+    "devops": { "maxTurnos": 80, "editar": "todo", "terminal": true, "subagentes": true, "descripcion": "Build, dependencias, CI, entornos locales y scripts." },
+    "investigacion": { "maxTurnos": 60, "editar": "ninguno", "terminal": false, "subagentes": false, "descripcion": "Normativa, documentación técnica y evaluación de librerías. Lee el proyecto pero no lo modifica." },
+    "general": { "maxTurnos": 60, "editar": "todo", "terminal": true, "subagentes": true, "descripcion": "Tareas que no encajan en otro perfil." }
+  }
+}

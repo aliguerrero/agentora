@@ -1,0 +1,15 @@
+# Datos de esta oficina: nunca se comparten
+config/
+logs/
+contextos/
+empleados/
+reuniones/
+contrataciones/
+musica/
+proyectos.json
+organizacion.json
+.env
+
+# Dependencias y compilados
+node_modules/
+casa/dist/
