@@ -32,6 +32,7 @@ const ONDAS = 3;
 const ANILLO_AMBAR = { r: 0.94, g: 0.66, b: 0.28 };
 
 interface Props {
+  onTocar?: () => void;
   /** Posición actual de Jules; la comparten las personas para mirarlo. */
   posicion: Vector3;
   /** Persona enfocada o seleccionada: Jules se aparta a un costado para no taparla. */
@@ -89,6 +90,7 @@ const suave = (x: number) => x * x * (3 - 2 * x);
  * siempre y se rematerializa en su sitio.
  */
 export function Jules({
+  onTocar,
   posicion,
   apartarDeId,
   enAmbiente = false,
@@ -311,7 +313,7 @@ export function Jules({
 
   return (
     <>
-      <group ref={grupo} dispose={null}>
+      <group ref={grupo} dispose={null} onClick={(e) => { if (onTocar) { e.stopPropagation(); onTocar(); } }} onPointerOver={(e) => { if (onTocar) { e.stopPropagation(); document.body.style.cursor = 'pointer'; } }} onPointerOut={() => { document.body.style.cursor = ''; }}>
         <group ref={cuerpo} visible={false}>
           <group ref={orientacion} position={[0, -CENTRO_CUERPO, 0]} scale={ESCALA_PERSONAJE}>
             <mesh geometry={g.cuerpo} material={cuerpoMat} />

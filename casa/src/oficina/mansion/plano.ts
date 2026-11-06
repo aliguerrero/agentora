@@ -201,7 +201,8 @@ const ambientes: Ambiente[] = [
   ambiente('gimnasio', 'Gimnasio', 'piso1', -16, -10, -4, 4, 'personal'),
   ambiente('living', 'Living', 'piso1', -10, -4, -4, 4, 'personal'),
   ambiente('atrio', 'Atrio', 'piso1', -4, 4, -4, 4, null, { alto: 7.5 }),
-  ambiente('cocina', 'Cocina', 'piso1', 4, 16, -4, 4, null),
+  ambiente('gerencia', 'Oficina del gerente', 'piso1', 4, 10, -4, 4, 'gerencia'),
+  ambiente('cocina', 'Cocina', 'piso1', 10, 16, -4, 4, null),
   ambiente('finanzas', 'Finanzas', 'piso2', -16, -4, -4, 4, 'finanzas'),
   ambiente('pasarela', 'Pasarela', 'piso2', -4, 4, -4, -2.5, null, { pasilloZ: -3.25 }),
   ambiente('ventas', 'Sala de reuniones', 'piso2', 4, 16, -4, 4, 'ventas'),
@@ -374,6 +375,10 @@ function extrasEnPares(ambienteId: string, z: number, xs: readonly number[]): vo
 }
 
 const ESCRITORIO_NOGAL: Medidas = { tipo: 'escritorio-nogal', ancho: 1.4, fondo: 0.7, alto: 0.74 };
+// Gerencia: despacho del gerente y puesto del supervisor, junto al pasillo común.
+estaciones('gerencia', SILLA_MALLA, [ESCRITORIO_NOGAL, ESCRITORIO_NOGAL], [{ cx: 5.7, s: 1 }], [-2, 0.4]);
+mueble('gerencia-cuotas', 'gerencia', { tipo: 'videowall', ancho: 3.6, fondo: 0.2, alto: 1.8 }, 7.1, -3.85, 0, { y: 0.7 });
+extrasEnPares('gerencia', 2.1, [6.5, 7.5]);
 const FILAS: readonly [number, number] = [-2, 0.4];
 
 // Desarrollo (piso 3, oeste): estudio con muro de pantallas.
@@ -687,7 +692,7 @@ mueble(
   'cocina-isla',
   'cocina',
   { tipo: 'isla-cocina', ancho: 3, fondo: 1.1, alto: 0.92 },
-  8.5,
+  11.7,
   -0.8,
   0,
   {
@@ -699,7 +704,7 @@ for (let i = 0; i < 3; i++) {
     `cocina-taburete-${i + 1}`,
     'cocina',
     { tipo: 'taburete', ancho: 0.4, fondo: 0.4, alto: 0.65 },
-    7.6 + i * 0.9,
+    10.8 + i * 0.9,
     0,
     0,
     {
@@ -710,8 +715,8 @@ for (let i = 0; i < 3; i++) {
 mueble(
   'cocina-muebles',
   'cocina',
-  { tipo: 'mueble-cocina', ancho: 8, fondo: 0.7, alto: 0.9 },
-  10,
+  { tipo: 'mueble-cocina', ancho: 5.2, fondo: 0.7, alto: 0.9 },
+  13,
   -3.65,
   0,
   {
@@ -807,7 +812,8 @@ function muroFondo(nivel: Nivel, x0: number, x1: number): void {
 muroX('piso1', -16, -4, 4, 'borde');
 muroX('piso1', -10, -4, 4, 'muro', { centro: 3, entre: ['gimnasio', 'living'] });
 muroX('piso1', -4, -4, 4, 'muro', { centro: 3, entre: ['living', 'atrio'] });
-muroX('piso1', 4, -4, 4, 'muro', { centro: 3, entre: ['atrio', 'cocina'] });
+muroX('piso1', 4, -4, 4, 'muro', { centro: 3, entre: ['atrio', 'gerencia'] });
+muroX('piso1', 10, -4, 4, 'muro', { centro: 3, entre: ['gerencia', 'cocina'] });
 muroX('piso1', 16, -4, 4, 'borde');
 muroFondo('piso1', -16, 16);
 // Piso 2: el atrio es un vacío; solo la pasarela une el oeste con el este.

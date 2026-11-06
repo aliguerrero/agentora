@@ -1,5 +1,15 @@
 /* Ajustes de la Oficina DevBox sobre la paleta de Jules (estilos.css). */
 
+.devbox .sala-patricia { --c: #ffe0a0; }
+.devbox .panel-patricia { border: 1px solid #ba945d; background: #171c24f5; backdrop-filter: blur(18px); }
+.devbox .patricia-form { display: grid; gap: 8px; }
+.devbox .patricia-form label { color: var(--muted); font-size: 12px; }
+.devbox .patricia-form textarea, .devbox .patricia-form select {
+  width: 100%; box-sizing: border-box; border: 1px solid var(--line);
+  border-radius: 10px; padding: 10px; background: #171b22; color: var(--text, #f5f1e8); font: inherit;
+}
+.devbox .patricia-form textarea { resize: vertical; min-height: 74px; max-height: 22vh; }
+.devbox .patricia-form .error { white-space: pre-wrap; font-size: 12px; }
 .devbox .panel-orden {
   width: min(400px, calc(100vw - 32px));
   max-height: calc(100vh - 140px);

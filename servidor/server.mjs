@@ -4,6 +4,7 @@
 // Solo escucha en 127.0.0.1 y exige un token aleatorio por arranque en /api/*.
 // Uso: node servidor/server.mjs   (o scripts/abrir-oficina.ps1 en Windows, scripts/abrir-oficina.sh en Linux)
 import http from 'node:http';
+import { leerSenales, emitirSenal, elegirDestinatarios } from './senales.mjs';
 import { crearTunel, paginaAcceso, soloLocal } from './tunel.mjs';
 import { buscarClaude, matarArbol } from './plataforma.mjs';
 import { motorActual, correrCodex, maxSimultaneos, buscarCodex, codexInstalado } from './motores.mjs';
@@ -335,6 +336,7 @@ function estadoOficina() {
     empleados: idsEmpleados().map((id) => ({ ...estadoEmpleado(id), perfil: perfilDe(id).perfil })),
     reunion: reunionActiva && { id: reunionActiva.id, tema: reunionActiva.tema, participantes: reunionActiva.participantes, turno: reunionActiva.turno },
     organizacion: org.resumen(),
+    senales: ctxActivo() ? leerSenales(ctxActivo().raiz) : [],
     general: G(),
     casa: config.leer('casa'),
     logo: logo.actual()?.url ?? null,
@@ -992,6 +994,7 @@ function responderEncargos() {
       const destino = path.join(dirEmp(de), 'encargos');
       fs.mkdirSync(destino, { recursive: true });
       fs.writeFileSync(path.join(destino, archivoResp), contenido);
+      emitirSenal(contextos.deEmpleado(de).raiz, id, de, archivoResp);
       registrar(de, { texto: `Recibió la respuesta de ${nombreDe(id)}`, clase: 'hablar' });
     }
   }
@@ -1512,6 +1515,24 @@ const servidor = http.createServer(async (req, res) => {
       return json(res, 200, { ok: true });
     }
     if (req.method === 'GET' && ruta === '/api/estado') return json(res, 200, estadoOficina());
+    if (req.method === 'POST' && ruta === '/api/patricia') {
+      const cuerpo = await leerCuerpo(req);
+      const c = ctxActivo();
+      if (!c || cuerpo.proyecto !== c.id) return json(res, 409, { error: 'El proyecto cambió. Abre de nuevo el panel de Patricia.' });
+      const mensaje = String(cuerpo.mensaje || '').trim();
+      if (!mensaje || mensaje.length > 4000 || !['auto', 'todos'].includes(cuerpo.modo)) return json(res, 400, { error: 'Escribe un pedido de hasta 4000 caracteres y elige cómo enviarlo.' });
+      const organizacion = orgDe(c).leer();
+      const agentes = contextos.idsDe(c).map((id) => ({ id, nombre: leerMd(path.join(c.empleados, id, 'CLAUDE.md')).meta?.nombre || id }));
+      const seleccion = elegirDestinatarios(mensaje, cuerpo.modo, organizacion, agentes);
+      const entregados = [], errores = [];
+      for (const id of seleccion.ids) {
+        try {
+          const archivo = orgDe(c).escribirEncargo('titular', id, 'Pedido transmitido por Patricia', `El titular comunica a través de Patricia:\n\n${mensaje}\n\nAtiende este pedido dentro de tus permisos. Coordina con los colegas que necesites y deja el resultado en este encargo.`, { via: 'patricia' });
+          entregados.push({ id, nombre: agentes.find((a) => a.id === id).nombre, archivo });
+        } catch (e) { errores.push({ id, error: e.message }); }
+      }
+      return json(res, 200, { motivo: seleccion.motivo, entregados, errores, senales: leerSenales(c.raiz) });
+    }
     if (req.method === 'GET' && ruta === '/api/mensajes') return json(res, 200, { mensajes: mensajes() });
 
     if (req.method === 'POST' && ruta === '/api/empleados') {

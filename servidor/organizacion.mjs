@@ -4,6 +4,7 @@
 // propia carpeta (empleados/<id>/solicitudes/); el servidor las atiende aquí, así
 // ningún agente necesita permisos de escritura fuera de su carpeta.
 import fs from 'node:fs';
+import { emitirSenal } from './senales.mjs';
 import path from 'node:path';
 import { detectarInyeccion } from './cuarentena.mjs';
 
@@ -217,6 +218,7 @@ ${comunes}`;
     const destino = path.join(EMPLEADOS, para, 'encargos');
     fs.mkdirSync(destino, { recursive: true });
     fs.writeFileSync(path.join(destino, archivo), contenido);
+    emitirSenal(RAIZ, extra.via === 'patricia' ? 'patricia' : de, para, archivo);
     return archivo;
   }
 

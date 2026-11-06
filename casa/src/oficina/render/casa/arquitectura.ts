@@ -78,6 +78,7 @@ const PISO_DE: Record<string, ClaveMaterial> = {
   living: 'parquet',
   atrio: 'marmol',
   cocina: 'marmol',
+  gerencia: 'parquet',
   finanzas: 'parquet',
   pasarela: 'vidrio',
   ventas: 'parquet',

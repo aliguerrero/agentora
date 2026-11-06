@@ -31,6 +31,8 @@ import type { ObraEnCurso } from './casa/ObrasEnCurso';
 import { alturaDeCorte, nivelOculto } from './casa/corte';
 import { ControlesCamara } from './ControlesCamara';
 import { Jules } from './Jules';
+import { Senales } from './Senales';
+import type { SenalAgente } from '../tipos';
 import { asignarPuestos, departamentosBase } from './layout';
 import { Luces } from './Luces';
 import { useMetricas } from './metricas';
@@ -40,6 +42,9 @@ import { precalentarTexturas } from './texturas';
 import { ZonasAmbiente } from './ZonasAmbiente';
 
 export interface OficinaProps {
+  onPatricia?: () => void;
+  senales?: readonly SenalAgente[];
+  proyectoSenales?: string;
   agentes: AgenteOficina[];
   onSeleccionar?: (id: string | null) => void;
   seleccionadoId?: string | null;
@@ -209,6 +214,9 @@ function Escena({
   motores,
   obras,
   onMotor,
+  onPatricia,
+  senales = [],
+  proyectoSenales,
 }: OficinaProps) {
   useMemo(precalentarTexturas, []);
   const rigs = useRef(new Map<string, Rig>());
@@ -369,6 +377,7 @@ function Escena({
       />
       {(letrero || logo) && <LetreroLed {...letrero} logo={logo} />}
       <Jules
+        onTocar={onPatricia}
         posicion={julesPos}
         apartarDeId={enfocadoId ?? seleccionado}
         enAmbiente={ambiente !== null && !enfocaJules}
@@ -381,6 +390,7 @@ function Escena({
         reposo={REPOSO_JULES}
         escala={ESCALA_JULES}
       />
+      <Senales eventos={senales} rigs={rigs} patricia={julesPos} reducir={reducirMovimiento} proyecto={proyectoSenales} />
       <ZonasAmbiente onToque={alToque} onDobleToque={setFoco} />
       <CorteCasa ambiente={ambiente} rigs={rigs} />
       <ControlesCamara

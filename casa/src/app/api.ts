@@ -1,4 +1,4 @@
-import type { AgenteOficina, Departamento, EstadoAgente } from '@jules/oficina';
+import type { AgenteOficina, Departamento, EstadoAgente, SenalAgente } from '@jules/oficina';
 import { aplicarAlas, marcarObras } from '@jules/oficina';
 import type { ObraEnCurso, PlantaAla } from '@jules/oficina';
 import { asignarSalas, SALA_REUNIONES } from './salas';
@@ -45,6 +45,7 @@ interface DepartamentoApi {
 }
 
 export interface EstadoApi {
+  senales?: SenalAgente[];
   empleados: EmpleadoApi[];
   organizacion: {
     ceo?: { nombre?: string; titular?: string };
@@ -92,6 +93,7 @@ export interface GrupoEquipo {
 }
 
 export interface Casa {
+  senales: SenalAgente[];
   agentes: AgenteOficina[];
   departamentos: Departamento[];
   /** id de sala de la casa -> nombre del departamento real que la ocupa. */
@@ -155,6 +157,7 @@ export function aCasa(e: EstadoApi): Casa {
     }));
   // Con su cartel y su botón como cualquier sala, pero no es de ningún departamento.
   departamentos.push({ id: SALA_REUNIONES, nombre: 'Sala de reuniones', lider: '', color: '#f0a848' });
+  departamentos.push({ id: 'gerencia', nombre: 'Gerencia · Cuotas', lider: org.gerente ? nombreDe(org.gerente) : '', color: '#e9be77' });
   const nombreSala = Object.fromEntries(departamentos.map((d) => [d.id, d.nombre]));
 
   const agentes: AgenteOficina[] = e.empleados.map((x) => {
@@ -184,7 +187,7 @@ export function aCasa(e: EstadoApi): Casa {
       nombre: x.ficha.meta['nombre'] || x.id,
       rol: x.ficha.meta['puesto'] || org.roles[x.id] || x.perfil || 'Empleado',
       // En reunión va a la mesa. Sin sala (gerente, supervisor o departamento sin sala libre): al atrio.
-      departamento: reunido ? SALA_REUNIONES : (deptoReal && salaDe[deptoReal]) || 'atrio',
+      departamento: reunido ? SALA_REUNIONES : x.id === org.gerente || x.id === 'supervisor' || /supervisor.*cuota|supervisi[oó]n.*motores/i.test(x.ficha.meta['puesto'] || '') ? 'gerencia' : (deptoReal && salaDe[deptoReal]) || 'atrio',
       estado,
       color: deptoReal ? colorDe[deptoReal] : undefined,
       actividad: x.conversando || e.reunion?.turno === x.id ? 'hablando' : x.enCurso ? 'escribiendo' : undefined,
@@ -196,17 +199,18 @@ export function aCasa(e: EstadoApi): Casa {
   const gerente = org.gerente ?? null;
   const conDepto = new Set(org.departamentos.map((d) => d.id));
   const grupos: GrupoEquipo[] = [
-    { id: '_gerencia', nombre: 'Gerencia', color: '#f0a848', ids: idsDe((id) => id === gerente) },
+    { id: '_gerencia', nombre: 'Gerencia y cuotas', color: '#f0a848', ids: idsDe((id) => id === gerente || id === 'supervisor') },
     ...org.departamentos.map((d) => ({
       id: d.id,
       nombre: d.nombre,
       color: d.color,
-      ids: idsDe((id) => id !== gerente && org.asignaciones[id] === d.id).sort((a, b) => Number(b === d.jefe) - Number(a === d.jefe)),
+      ids: idsDe((id) => id !== gerente && id !== 'supervisor' && org.asignaciones[id] === d.id).sort((a, b) => Number(b === d.jefe) - Number(a === d.jefe)),
     })),
-    { id: '_sin', nombre: 'Sin departamento', color: '#8a8f98', ids: idsDe((id) => id !== gerente && !conDepto.has(org.asignaciones[id] ?? '')) },
+    { id: '_sin', nombre: 'Sin departamento', color: '#8a8f98', ids: idsDe((id) => id !== gerente && id !== 'supervisor' && !conDepto.has(org.asignaciones[id] ?? '')) },
   ].filter((g) => g.ids.length > 0);
 
   return {
+    senales: e.senales ?? [],
     agentes,
     grupos,
     roles: org.roles ?? {},

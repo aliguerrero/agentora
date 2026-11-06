@@ -235,6 +235,7 @@ export function Personas({
       relacion.atencion = atencion.personas[i] ?? null;
       const idFoco = atencion.enfocado >= 0 ? lista[atencion.enfocado]?.id : undefined;
       relacion.foco = (idFoco && sims.current.get(idFoco)) || null;
+      contexto.retenerEnSala = datos.current.retenerEnSala || agente.departamento === 'gerencia';
       actualizarPersona(
         sim,
         rig,

@@ -9,6 +9,8 @@ import { ListaEquipo } from './ListaEquipo';
 import { SalaReuniones } from './SalaReuniones';
 import { SALA_REUNIONES } from './salas';
 import { PanelAgente } from './PanelAgente';
+import { PanelPatricia } from './PanelPatricia';
+import type { SenalAgente } from '@jules/oficina';
 import { ConfigPanel } from './config/ConfigPanel';
 import { ElegirDepartamento } from './ElegirDepartamento';
 import { Asistente } from './Asistente';
@@ -25,6 +27,10 @@ const REFRESCO_MS = 5000;
 /** La casa 3D con los empleados reales de la oficina. */
 export function DevBox() {
   const [casa, setCasa] = useState<Casa | null>(null);
+  const [panelPatricia, setPanelPatricia] = useState(false);
+  const [patriciaEnviando, setPatriciaEnviando] = useState(false);
+  const abrirPatricia = useCallback(() => { setSeleccionadoId(null); setPanelReunion(false); setPanelPatricia(true); }, []);
+  const alSenales = useCallback((senales: SenalAgente[], proyecto: string) => setCasa((c) => c?.proyecto?.id === proyecto ? { ...c, senales } : c), []);
   // Cambia al cambiar de proyecto: recarga el equipo del nuevo proyecto al instante.
   const [version, setVersion] = useState(0);
   const [error, setError] = useState('');
@@ -170,13 +176,16 @@ export function DevBox() {
             agentes={agentes}
             departamentos={casa.departamentos}
             seleccionadoId={seleccionadoId}
-            onSeleccionar={setSeleccionadoId}
+            onSeleccionar={(id) => { setSeleccionadoId(id); if (id) setPanelPatricia(false); }}
             onMetricas={alMedir}
             visible={visible}
             ambienteId={ambienteId}
             onAmbiente={setAmbienteId}
             vistaGeneral={vista}
-            presenciaJules={esperan.length > 0 ? 'esperando_decision' : trabajando > 0 ? 'pensando' : 'reposo'}
+            presenciaJules={patriciaEnviando ? 'pensando' : panelPatricia ? 'escuchando' : esperan.length > 0 ? 'esperando_decision' : trabajando > 0 ? 'pensando' : 'reposo'}
+            onPatricia={abrirPatricia}
+            senales={casa.senales}
+            proyectoSenales={casa.proyecto?.id}
             encuadreLibre
             horaChile={horaLocal}
             etiquetas={cfgCasa?.etiquetas ?? 'hover'}
@@ -217,6 +226,7 @@ export function DevBox() {
 
       <nav className="hud salas" aria-label="Departamentos">
         <div className="salas-carril">
+        <button type="button" className="sala sala-patricia" aria-pressed={panelPatricia} onClick={abrirPatricia}><i />✦ Patricia</button>
         {salas.map((s) => (
           <button
             key={s.id}
@@ -234,7 +244,7 @@ export function DevBox() {
           </button>
         ))}
         </div>
-        {casa && <ListaEquipo grupos={casa.grupos} agentes={agentes} onElegir={setSeleccionadoId} />}
+        {casa && <ListaEquipo grupos={casa.grupos} agentes={agentes} onElegir={(id) => { setPanelPatricia(false); setSeleccionadoId(id); }} />}
       </nav>
 
       <Leyenda />
@@ -248,6 +258,7 @@ export function DevBox() {
           onCambiado={(p) => {
             setCasa((c) => (c ? { ...c, proyecto: p } : c));
             setSeleccionadoId(null);
+            setPanelPatricia(false);
             setVersion((v) => v + 1);
           }}
           onGestionar={() => {
@@ -286,7 +297,7 @@ export function DevBox() {
           </span>
         )}
         {ambiente && (
-          casa && ambiente.departamento && ambiente.departamento !== SALA_REUNIONES && ambiente.alto > 0 && casa.deptos.length > 0 && <ElegirDepartamento key={ambiente.departamento} casa={casa} sala={ambiente.departamento} onGuardado={alGuardarCasa} />
+          casa && ambiente.departamento && ![SALA_REUNIONES, 'gerencia'].includes(ambiente.departamento) && ambiente.alto > 0 && casa.deptos.length > 0 && <ElegirDepartamento key={ambiente.departamento} casa={casa} sala={ambiente.departamento} onGuardado={alGuardarCasa} />
         )}
         {ambiente && (
           <button type="button" className="btn" onClick={() => setAmbienteId(null)}>
@@ -311,7 +322,7 @@ export function DevBox() {
       </div>
 
       {casa && <SalaReuniones casa={casa} abierta={panelReunion && !seleccionado} onCerrar={() => setPanelReunion(false)} onEnCurso={alEnCurso} />}
-      {seleccionado ? (
+      {panelPatricia && casa ? <PanelPatricia key={casa.proyecto?.id} casa={casa} onCerrar={() => setPanelPatricia(false)} onEnviando={setPatriciaEnviando} onSenales={alSenales} /> : seleccionado ? (
         <PanelAgente
           key={seleccionado.id}
           agente={seleccionado}

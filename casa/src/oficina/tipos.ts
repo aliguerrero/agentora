@@ -84,6 +84,13 @@ export interface AtuendoResuelto extends Atuendo {
 }
 
 export type EstadoAgente = 'trabajando' | 'esperando_decision' | 'libre';
+export interface SenalAgente {
+  id: string;
+  fecha: string;
+  de: string;
+  para: string;
+  archivo?: string;
+}
 export type Actividad = 'leyendo' | 'escribiendo' | 'pensando' | 'hablando';
 
 export interface AgenteOficina {
