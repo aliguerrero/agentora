@@ -23,8 +23,8 @@ const COOKIE = 'oficina_sesion';
 const REENVIO = ['cf-connecting-ip', 'x-forwarded-for', 'forwarded', 'tailscale-user-login'];
 const ALFABETO = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
 
-/** Lo que nunca se hace desde fuera: gestionar el túnel y tocar secretos o conexiones. */
-const SOLO_LOCAL = /^\/api\/(?:tunel|conexiones|config\/(?:secretos|exportar|importar|restablecer|paquete))(?:\/|$)/;
+/** Lo que nunca se hace desde fuera: gestionar el túnel, tocar secretos o conexiones y abrir ventanas en este equipo. */
+const SOLO_LOCAL = /^\/api\/(?:tunel|conexiones|sistema|config\/(?:secretos|exportar|importar|restablecer|paquete))(?:\/|$)/;
 export const soloLocal = (ruta) => SOLO_LOCAL.test(ruta);
 
 const hash = (t) => crypto.createHash('sha256').update(t).digest();

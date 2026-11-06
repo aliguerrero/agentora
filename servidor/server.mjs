@@ -7,6 +7,7 @@ import http from 'node:http';
 import { leerSenales, emitirSenal, elegirDestinatarios } from './senales.mjs';
 import { crearTunel, paginaAcceso, soloLocal } from './tunel.mjs';
 import { buscarClaude, matarArbol } from './plataforma.mjs';
+import { crearSelectorCarpeta } from './elegir-carpeta.mjs';
 import { motorActual, correrCodex, maxSimultaneos, buscarCodex, codexInstalado } from './motores.mjs';
 import { elegirMotor, registrarResultado, registrarDecision, estadoMotor, detectarLimite, otroMotor, cuotaDesdeLog, ultimaLectura, ventanasDe } from './coordinador.mjs';
 import { perfilDe, herramientasClaude, leerPerfiles, cambiarTopePasos, accesoMcp, mcpDeEmpleado, vetosTotal, vetosSecretos } from './perfiles.mjs';
@@ -61,6 +62,7 @@ function pistasMusica() {
 const TIPOS_CASA = { '.js': 'text/javascript; charset=utf-8', '.css': 'text/css; charset=utf-8', '.webp': 'image/webp', '.png': 'image/png', '.svg': 'image/svg+xml', '.json': 'application/json' };
 const PUERTO = Number(process.env.OFICINA_PUERTO || 4848);
 const TOKEN = randomBytes(16).toString('hex');
+const elegirCarpeta = crearSelectorCarpeta();
 const tunel = crearTunel({ puerto: PUERTO, logs: path.join(RAIZ, 'logs') });
 process.on('exit', () => tunel.apagar());
 // Un error sin atender apaga el servidor: que al menos quede escrito por qué.
@@ -1822,6 +1824,9 @@ const servidor = http.createServer(async (req, res) => {
     }
     const cc = ruta.match(/^\/api\/config\/([a-z]+)$/);
     if (cc && req.method === 'PUT') return json(res, 200, { [cc[1]]: config.guardar(cc[1], await leerCuerpo(req), 'panel') });
+
+    // El explorador para elegir una carpeta se abre en este equipo (atenderRemoto lo veda desde fuera).
+    if (ruta === '/api/sistema/elegir-carpeta' && req.method === 'POST') return json(res, 200, { ruta: await elegirCarpeta() });
 
     // Túnel para entrar desde otros dispositivos (atenderRemoto impide usar esto desde fuera).
     if (ruta === '/api/tunel' && req.method === 'GET') return json(res, 200, { ...tunel.estado(), sistema: process.platform, proveedores: await tunel.proveedores() });

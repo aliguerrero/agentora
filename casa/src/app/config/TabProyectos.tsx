@@ -3,6 +3,7 @@ import type { FormEvent } from 'react';
 import { cambiarEstadoProyecto, crearProyecto, leerProyectos } from '../proyectosApi';
 import type { Proyectos } from '../proyectosApi';
 import { guardarSeccion, pedir } from './configApi';
+import { CampoCarpeta } from './CampoCarpeta';
 
 type AlCambiar = 'preguntar' | 'pausar' | 'segundo-plano';
 
@@ -113,13 +114,15 @@ export function TabProyectos() {
           </button>
           <button type="button" className="cfg-opcion" aria-pressed={!nuevo.crear} onClick={() => setNuevo({ ...nuevo, crear: false })}>
             <b>Repositorio existente</b>
-            <span>Indica la carpeta del proyecto en este equipo.</span>
+            <span>Búscala o escribe su ruta en este equipo.</span>
           </button>
         </div>
-        <label>
-          {nuevo.crear ? 'Carpeta (opcional; por defecto, «proyectos» junto a la oficina)' : 'Carpeta del repositorio'}
-          <input value={nuevo.ruta} required={!nuevo.crear} onChange={(e) => setNuevo({ ...nuevo, ruta: e.target.value })} placeholder="Ruta completa de la carpeta" spellCheck={false} />
-        </label>
+        <CampoCarpeta
+          etiqueta={nuevo.crear ? 'Carpeta (opcional; por defecto, «proyectos» junto a la oficina)' : 'Carpeta del repositorio'}
+          valor={nuevo.ruta}
+          requerido={!nuevo.crear}
+          onCambio={(ruta) => setNuevo((n) => ({ ...n, ruta }))}
+        />
         <div className="cfg-acciones">
           <button type="submit" className="btn principal" disabled={ocupado || !nuevo.nombre.trim()}>
             {ocupado ? 'Creando…' : 'Crear proyecto'}

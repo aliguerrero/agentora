@@ -3,6 +3,7 @@ import { crearProyecto } from './proyectosApi';
 import { guardarSeccion, leerConfig, leerMotores } from './config/configApi';
 import type { General, PanelMotores, PoliticaMotores } from './config/configApi';
 import './config/config.css';
+import { CampoCarpeta } from './config/CampoCarpeta';
 
 interface Props {
   /** Termina el asistente; `pestana` abre esa pestaña de Configuración al cerrar. */
@@ -198,10 +199,11 @@ export function Asistente({ onTerminar }: Props) {
                 <span>Indica la carpeta en este equipo.</span>
               </button>
             </div>
-            <label>
-              {proyecto.crear ? 'Carpeta (opcional)' : 'Carpeta del repositorio'}
-              <input value={proyecto.ruta} onChange={(e) => setProyecto({ ...proyecto, ruta: e.target.value })} spellCheck={false} />
-            </label>
+            <CampoCarpeta
+              etiqueta={proyecto.crear ? 'Carpeta (opcional)' : 'Carpeta del repositorio'}
+              valor={proyecto.ruta}
+              onCambio={(ruta) => setProyecto((p) => ({ ...p, ruta }))}
+            />
           </div>
         )}
 

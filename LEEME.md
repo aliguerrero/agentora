@@ -48,7 +48,7 @@ Tú decides en qué se trabaja y cuánta autonomía tienen. Todo corre en tu com
 ## Tu primer proyecto
 
 Crea uno desde el asistente o desde ⚙ › Proyectos, con una carpeta nueva o un repositorio que
-ya tengas. Nace con un solo agente, su gerente, que analiza el repositorio y forma el equipo.
+ya tengas (el botón «Buscar…» abre el explorador; en Linux necesita `zenity` o `kdialog`). Nace con un solo agente, su gerente, que analiza el repositorio y forma el equipo.
 
 **Esto ya gasta cuota de tu motor.** Si quieres revisar la configuración antes, apaga los motores
 en ⚙ › Motores y actívalos cuando estés listo.
